@@ -1,4 +1,13 @@
-export default function Pagination({ page, pages, onChange }) {
+// src/components/Pagination.tsx
+import { ReactNode } from "react";
+
+interface PaginationProps {
+  page: number;
+  pages: number;
+  onChange: (page: number) => void;
+}
+
+export default function Pagination({ page, pages, onChange }: PaginationProps) {
   if (pages <= 1) return null;
 
   const nums = getPageNumbers(page, pages);
@@ -11,7 +20,9 @@ export default function Pagination({ page, pages, onChange }) {
 
       {nums.map((n, i) =>
         n === "…" ? (
-          <span key={`e-${i}`} className="px-2 text-white/80">…</span>
+          <span key={`e-${i}`} className="px-2 text-white/80">
+            …
+          </span>
         ) : (
           <button
             key={n}
@@ -35,7 +46,13 @@ export default function Pagination({ page, pages, onChange }) {
   );
 }
 
-function NavButton({ disabled, onClick, children }) {
+interface NavButtonProps {
+  disabled: boolean;
+  onClick: () => void;
+  children: ReactNode;
+}
+
+function NavButton({ disabled, onClick, children }: NavButtonProps) {
   return (
     <button
       disabled={disabled}
@@ -52,18 +69,23 @@ function NavButton({ disabled, onClick, children }) {
   );
 }
 
-/* simple helper: 1 2 … 9 style */
-function getPageNumbers(page, pages) {
-  const nums = [];
-  const add = (n) => nums.push(n);
+/* simple helper: returns array like [1, 2, "…", 9] */
+function getPageNumbers(page: number, pages: number): Array<number | "…"> {
+  const nums: Array<number | "…"> = [];
+  const add = (n: number | "…") => nums.push(n);
+
   if (pages <= 7) {
     for (let i = 1; i <= pages; i++) add(i);
     return nums;
   }
+
   add(1);
   if (page > 3) add("…");
-  for (let i = Math.max(2, page - 1); i <= Math.min(pages - 1, page + 1); i++) add(i);
+  for (let i = Math.max(2, page - 1); i <= Math.min(pages - 1, page + 1); i++) {
+    add(i);
+  }
   if (page < pages - 2) add("…");
   add(pages);
+
   return nums;
 }

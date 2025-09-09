@@ -1,26 +1,26 @@
-// src/pages/Clients.jsx
+// src/pages/Clients.tsx
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SegmentedTabs from "../../components/SegmentedTabs";
 import SearchBar from "../../components/SearchBar";
 import ClientCard from "../../components/ClientCard";
 import Pagination from "../../components/Pagination";
-import { CLIENTS } from "../../data/clients";
+import { CLIENTS, type Client } from "../../data/clients";
 
 const PAGE_SIZE = 6;
 
 export default function Clients() {
   const navigate = useNavigate();
 
-  const [segment, setSegment] = useState("individual"); // "individual" | "business"
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
+  const [segment, setSegment] = useState<"individual" | "business">("individual");
+  const [query, setQuery] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
 
   // Filter by segment + search query
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return CLIENTS.filter(
-      (c) =>
+      (c: Client) =>
         c.kind === segment &&
         (q === "" ||
           c.name.toLowerCase().includes(q) ||
@@ -34,11 +34,11 @@ export default function Clients() {
   const paged = filtered.slice(start, start + PAGE_SIZE);
 
   // Reset page when filters change
-  function onSegmentChange(next) {
+  function onSegmentChange(next: "individual" | "business") {
     setSegment(next);
     setPage(1);
   }
-  function onSearchChange(q) {
+  function onSearchChange(q: string) {
     setQuery(q);
     setPage(1);
   }
@@ -51,12 +51,12 @@ export default function Clients() {
       </header>
 
       {/* Tabs */}
-      <section className="">
+      <section>
         <SegmentedTabs value={segment} onChange={onSegmentChange} />
       </section>
 
       {/* Search */}
-      <section className="">
+      <section>
         <SearchBar value={query} onChange={onSearchChange} />
       </section>
 

@@ -1,4 +1,12 @@
-export default function SegmentedTabs({ value, onChange }) {
+// src/components/SegmentedTabs.tsx
+import { SVGProps } from "react";
+
+interface SegmentedTabsProps {
+  value: "individual" | "business";
+  onChange: (val: "individual" | "business") => void;
+}
+
+export default function SegmentedTabs({ value, onChange }: SegmentedTabsProps) {
   const base =
     "inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition select-none";
   const active = "bg-[#1F66D1] text-white shadow";
@@ -24,7 +32,7 @@ export default function SegmentedTabs({ value, onChange }) {
 }
 
 /* tiny inline icons */
-function UserIcon(props) {
+function UserIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
       <circle cx="12" cy="9" r="4" />
@@ -32,7 +40,8 @@ function UserIcon(props) {
     </svg>
   );
 }
-function BuildingIcon(props) {
+
+function BuildingIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
       <path d="M4 20V6a2 2 0 0 1 2-2h8l6 6v10H4z" />
@@ -40,7 +49,8 @@ function BuildingIcon(props) {
     </svg>
   );
 }
-function ChevronDown(props) {
+
+function ChevronDown(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" {...props}>
       <path d="M6 10l6 6 6-6" strokeWidth="2" strokeLinecap="round" />

@@ -1,4 +1,17 @@
-export default function SearchBar({ value, onChange, placeholder = "Search Clients" }) {
+// src/components/SearchBar.tsx
+import { SVGProps } from "react";
+
+interface SearchBarProps {
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+}
+
+export default function SearchBar({
+  value,
+  onChange,
+  placeholder = "Search Clients",
+}: SearchBarProps) {
   return (
     <label className="relative block">
       <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#0E3561]/60">
@@ -14,7 +27,7 @@ export default function SearchBar({ value, onChange, placeholder = "Search Clien
   );
 }
 
-function SearchIcon(props) {
+function SearchIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
       <circle cx="11" cy="11" r="7" strokeWidth="2" />

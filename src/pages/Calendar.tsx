@@ -1,5 +1,7 @@
-// src/pages/Calendar.jsx
-export default function Calendar() {
+// src/pages/Calendar.tsx
+import { FC } from "react";
+
+const Calendar: FC = () => {
   return (
     <section className="px-4">
       <div className="bg-white/10 rounded-2xl p-5 shadow">
@@ -8,4 +10,6 @@ export default function Calendar() {
       </div>
     </section>
   );
-}
+};
+
+export default Calendar;

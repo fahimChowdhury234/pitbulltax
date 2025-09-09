@@ -1,12 +1,14 @@
 import { Routes, Route, NavLink, useLocation, Outlet } from "react-router-dom";
 import Home from "./pages/Home";
 import Calendar from "./pages/Calendar";
-import ClientsIndex from "./pages/Clients";     // list page (/clients)
-import ClientSummary from "./pages/Clients/Summary";  // details page (/clients/:id/summary)
+import ClientsIndex from "./pages/Clients";          
+import ClientSummary from "./pages/Clients/Summary"; 
+import { SVGProps } from "react";
+import Support from "./pages/Support";
 
-function routeLabel(pathname) {
+function routeLabel(pathname: string): string {
   if (pathname.startsWith("/clients")) return "Clients"; // covers nested routes
-  const map = {
+  const map: Record<string, string> = {
     "/": "Home",
     "/calendar": "Calendar",
     "/files": "Files",
@@ -35,7 +37,11 @@ export default function App() {
       <header className="px-6 pt-8 pb-4 flex items-center justify-between">
         <h1 className="text-4xl font-extrabold tracking-tight">Menu</h1>
         <div className="w-11 h-11 rounded-full overflow-hidden ring-2 ring-white/40">
-          <img src="https://i.pravatar.cc/100?img=1" className="w-full h-full object-cover" alt="Profile" />
+          <img
+            src="https://i.pravatar.cc/100?img=1"
+            className="w-full h-full object-cover"
+            alt="Profile"
+          />
         </div>
       </header>
 
@@ -50,6 +56,7 @@ export default function App() {
             <Route index element={<ClientsIndex />} />
             <Route path=":id/summary" element={<ClientSummary />} />
           </Route>
+          <Route path="/support" element={<Support />} />
         </Routes>
       </main>
 
@@ -89,19 +96,27 @@ export default function App() {
   );
 }
 
-/* Icons */
-function HomeIcon(props) {
+/* ---------- Inline SVG Icons with typing ---------- */
+function HomeIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
-      <path d="M3 10.5L12 3l9 7.5v9a1.5 1.5 0 0 1-1.5 1.5H4.5A1.5 1.5 0 0 1 3 19.5v-9z" strokeWidth="1.8" />
+      <path
+        d="M3 10.5L12 3l9 7.5v9a1.5 1.5 0 0 1-1.5 1.5H4.5A1.5 1.5 0 0 1 3 19.5v-9z"
+        strokeWidth="1.8"
+      />
       <path d="M9 22v-7h6v7" strokeWidth="1.8" />
     </svg>
   );
 }
-function MenuIcon(props) {
+
+function MenuIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
-      <path d="M4 6h16M4 12h16M4 18h16" strokeWidth="1.8" strokeLinecap="round" />
+      <path
+        d="M4 6h16M4 12h16M4 18h16"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }

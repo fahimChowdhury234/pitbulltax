@@ -1,18 +1,26 @@
-// src/pages/clients/Summary.jsx
+// src/pages/clients/Summary.tsx
 import { useNavigate, useParams } from "react-router-dom";
-import { CLIENTS, CLIENT_DETAILS } from "../../data/clients";
+import {
+  CLIENTS,
+  CLIENT_DETAILS,
+  type Client,
+  type ClientDetails,
+} from "../../data/clients";
 
-// components
+// components (assumed already TS or TSX-ready)
 import SectionCard from "../../components/summary/SectionCard";
 import KeyValue from "../../components/summary/KeyValue";
 import StatusPill from "../../components/summary/StatusPill";
 
+import type { SVGProps } from "react";
+
 export default function ClientSummary() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+
   const numericId = Number(id);
-  const client = CLIENTS.find((c) => c.id === numericId);
-  const details = CLIENT_DETAILS[numericId];
+  const client: Client | undefined = CLIENTS.find((c) => c.id === numericId);
+  const details: ClientDetails | undefined = CLIENT_DETAILS[numericId];
 
   if (!client) {
     return (
@@ -24,22 +32,7 @@ export default function ClientSummary() {
       </div>
     );
   }
-  function formatCurrency(n) {
-    if (typeof n !== "number") return n;
-    return n.toLocaleString("en-US", { style: "currency", currency: "USD" });
-  }
-  function ArrowLeft(props) {
-    return (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
-        <path
-          d="M15 18l-6-6 6-6"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    );
-  }
+
   return (
     <div className="pb-28">
       {/* Top title row */}
@@ -67,14 +60,8 @@ export default function ClientSummary() {
           <KeyValue label="Taxpayer" value={details?.personal?.Taxpayer} />
           <KeyValue label="Address" value={details?.personal?.Address} />
           <KeyValue label="SSN" value={details?.personal?.SSN} />
-          <KeyValue
-            label="Cell Phone"
-            value={details?.personal?.["Cell Phone"]}
-          />
-          <KeyValue
-            label="Home Phone"
-            value={details?.personal?.["Home Phone"]}
-          />
+          <KeyValue label="Cell Phone" value={details?.personal?.["Cell Phone"]} />
+          <KeyValue label="Home Phone" value={details?.personal?.["Home Phone"]} />
         </SectionCard>
 
         <SectionCard title="IRS Tax Liability">
@@ -90,7 +77,7 @@ export default function ClientSummary() {
                 </tr>
               </thead>
               <tbody className="text-black/80">
-                {(details?.irsTaxLiability || []).map((row, i) => (
+                {(details?.irsTaxLiability ?? []).map((row, i) => (
                   <tr key={i} className="border-t border-black/5">
                     <td className="py-2 pr-4">{row.year}</td>
                     <td className="py-2 pr-4">{row.form}</td>
@@ -108,7 +95,7 @@ export default function ClientSummary() {
 
         <SectionCard title="Authorization on File - 2848/8821">
           <div className="divide-y divide-black/5">
-            {(details?.authorizations || []).map((a, i) => (
+            {(details?.authorizations ?? []).map((a, i) => (
               <div key={i} className="py-3">
                 <div className="flex flex-wrap items-center gap-6 text-[#0E3561] font-semibold text-sm">
                   <span>Form: {a.form}</span>
@@ -140,13 +127,11 @@ export default function ClientSummary() {
                 </tr>
               </thead>
               <tbody className="text-black/80">
-                {(details?.billing || []).map((b, i) => (
+                {(details?.billing ?? []).map((b, i) => (
                   <tr key={i} className="border-t border-black/5">
                     <td className="py-2 pr-4">{b.caseName}</td>
                     <td className="py-2 pr-4">
-                      <StatusPill tone={b.status.tone}>
-                        {b.status.label}
-                      </StatusPill>
+                      <StatusPill tone={b.status.tone}>{b.status.label}</StatusPill>
                     </td>
                     <td className="py-2 pr-4">{b.created}</td>
                     <td className="py-2 pr-0">{b.due}</td>
@@ -158,5 +143,25 @@ export default function ClientSummary() {
         </SectionCard>
       </div>
     </div>
+  );
+}
+
+/* ---------- helpers & icons ---------- */
+function formatCurrency(n: number | string): string {
+  return typeof n === "number"
+    ? n.toLocaleString("en-US", { style: "currency", currency: "USD" })
+    : String(n);
+}
+
+function ArrowLeft(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
+      <path
+        d="M15 18l-6-6 6-6"
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }

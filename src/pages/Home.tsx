@@ -1,5 +1,4 @@
 import MenuTile from "../components/MenuTile";
-import { Link } from "react-router-dom";
 import {
   CalendarIcon,
   FolderIcon,
@@ -16,7 +15,16 @@ import {
   SMSIcon,
   ProfileIcon,
 } from "../icons/Icons";
-const tiles = [
+import { ComponentType, SVGProps } from "react";
+
+interface Tile {
+  label: string;
+  to: string;
+  badge?: number;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
+}
+
+const tiles: Tile[] = [
   { label: "Calendar", to: "/calendar", badge: 1, icon: CalendarIcon },
   { label: "Files", to: "/files", icon: FolderIcon },
   { label: "Notifications", to: "/notifications", badge: 10, icon: BellIcon },
@@ -35,16 +43,14 @@ const tiles = [
 
 export default function Home() {
   return (
-    <>
-      <section className="pt-5 pb-10">
-        <div className="grid grid-cols-3 gap-4">
-          {tiles.map((t, i) => (
-            <MenuTile key={i} label={t.label} to={t.to} badge={t.badge}>
-              <t.icon className="w-8 h-8" />
-            </MenuTile>
-          ))}
-        </div>
-      </section>
-    </>
+    <section className="pt-5 pb-10">
+      <div className="grid grid-cols-3 gap-4">
+        {tiles.map((t, i) => (
+          <MenuTile key={i} label={t.label} to={t.to} badge={t.badge}>
+            <t.icon className="w-8 h-8" />
+          </MenuTile>
+        ))}
+      </div>
+    </section>
   );
 }
