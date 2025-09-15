@@ -1,10 +1,25 @@
 import { Routes, Route, NavLink, useLocation, Outlet } from "react-router-dom";
 import Home from "./pages/Home";
 import Calendar from "./pages/Calendar";
-import ClientsIndex from "./pages/Clients";          
-import ClientSummary from "./pages/Clients/Summary"; 
+import ClientsIndex from "./pages/Clients";
+import ClientSummary from "./pages/Clients/Summary";
 import { SVGProps } from "react";
 import Support from "./pages/Support";
+import NewTicket from "./pages/Support/NewTicket";
+import Tickets from "./pages/Support/Tickets";
+import Settings from "./pages/Settings";
+import TimeZones from "./pages/Settings/TimeZones";
+import Notifications from "./pages/Settings/Notifications";
+import TwoFactor from "./pages/Settings/TwoFactor";
+import Reminders from "./pages/Settings/Reminders";
+import Fingerprint from "./pages/Settings/Fingerprint";
+import BillingHome from "./pages/Billing";
+import BillingTransactions from "./pages/Billing/Transactions";
+import BillingInvoice from "./pages/Billing/Invoice";
+import SendPaymentLink from "./pages/Billing/SendPaymentLink";
+// import ClientPicker from "./pages/files/ClientPicker";
+// import ClientFiles from "./pages/files/ClientFiles";
+// import FolderView from "./pages/files/FolderView";
 
 function routeLabel(pathname: string): string {
   if (pathname.startsWith("/clients")) return "Clients"; // covers nested routes
@@ -15,11 +30,18 @@ function routeLabel(pathname: string): string {
     "/notifications": "Notifications",
     "/chat": "Chat",
     "/settings": "Settings",
+    "/settings/time-zones": "Time zones",
     "/promotions": "Promotions",
     "/email": "Email",
     "/news": "News",
-    "/billing": "Billing",
     "/support": "Support",
+    "/support/tickets": "Tickets",
+    "/support/new-ticket": "Tickets",
+    "/settings/notifications": "notifications",
+    "/settings/2fa": "2-F Authentication",
+    "/settings/reminders": "Reminders",
+    "/settings/fingerprint": "Fingerprint",
+    "/billing": "Billing"
   };
   return map[pathname] ?? "Home";
 }
@@ -57,6 +79,24 @@ export default function App() {
             <Route path=":id/summary" element={<ClientSummary />} />
           </Route>
           <Route path="/support" element={<Support />} />
+          <Route path="/support/new-ticket" element={<NewTicket />} />
+          <Route path="/support/tickets" element={<Tickets />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/settings/time-zones" element={<TimeZones />} />
+          <Route path="/settings/notifications" element={<Notifications />} />
+          <Route path="/settings/2fa" element={<TwoFactor />} />
+          <Route path="/settings/reminders" element={<Reminders />} />
+          <Route path="/settings/fingerprint" element={<Fingerprint />} />
+          {/* <Route index element={<ClientPicker />} />
+          <Route path=":clientfolderIdId" element={<ClientFiles />} />
+          <Route path="/files/:clientId/:folderId" element={<FolderView />} /> */}
+          <Route path="/billing" element={<BillingHome />} />
+          <Route
+            path="/billing/transactions"
+            element={<BillingTransactions />}
+          />
+          <Route path="/billing/invoice/:id" element={<BillingInvoice />} />
+          <Route path="/billing/send-link" element={<SendPaymentLink />} />
         </Routes>
       </main>
 

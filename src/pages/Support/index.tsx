@@ -12,7 +12,7 @@ export default function Support() {
     <div className=" pb-28">
       {/* Title */}
       <header className="pt-2 pb-4">
-        <h1 className="text-4xl font-extrabold text-white">Support</h1>
+        <h1 className="text-2xl font-extrabold text-white">Support</h1>
       </header>
 
       <div className="space-y-4">

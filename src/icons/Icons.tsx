@@ -1,5 +1,6 @@
 /* ---------- Simple icons to match the screenshot vibe ---------- */
 import { SVGProps } from "react";
+import { Cloud, FileType } from "../data/files";
 export function FolderIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
@@ -337,6 +338,231 @@ export function WhatsAppIcon(props: SVGProps<SVGSVGElement>) {
         <g xmlns="http://www.w3.org/2000/svg"></g>
         <g xmlns="http://www.w3.org/2000/svg"></g>
       </g>
+    </svg>
+  );
+}
+export function ArrowLeft(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
+      <path
+        d="M15 18l-6-6 6-6"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function PaperclipIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      {...props}
+    >
+      <path d="M21.44 11.05l-9.19 9.19a5 5 0 0 1-7.07-7.07l9.19-9.19a3 3 0 0 1 4.24 4.24l-9.19 9.19a1 1 0 0 1-1.41-1.41l8.48-8.48" />
+    </svg>
+  );
+}
+
+export function Chevron(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
+      <path d="M6 9l6 6 6-6" strokeWidth={2} strokeLinecap="round" />
+    </svg>
+  );
+}
+export function Paperclip(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      {...props}
+    >
+      <path d="M21.44 11.05l-9.19 9.19a5 5 0 0 1-7.07-7.07l9.19-9.19a3 3 0 0 1 4.24 4.24l-9.19 9.19a1 1 0 0 1-1.41-1.41l8.48-8.48" />
+    </svg>
+  );
+}
+export function Play(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M8 5v14l11-7z" />
+    </svg>
+  );
+}
+export function Check(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M9 16.2l-3.5-3.5L4 14.2l5 5L20 8.2 18.5 7z" />
+    </svg>
+  );
+}
+
+export function GlobeIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
+      <circle cx="12" cy="12" r="9" strokeWidth={2} />
+      <path
+        d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"
+        strokeWidth={2}
+      />
+    </svg>
+  );
+}
+
+export function InfoIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M11 10h2v7h-2zM11 7h2v2h-2z" fill="#fff" />
+    </svg>
+  );
+}
+export function ShieldIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M12 2l7 3v6c0 5-3.5 9-7 11-3.5-2-7-6-7-11V5l7-3z" />
+      <path d="M9 12l2 2 4-4" fill="none" stroke="#fff" strokeWidth={2} />
+    </svg>
+  );
+}
+export function CalendarNoteIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
+      <rect x="3" y="4" width="18" height="16" rx="2" strokeWidth={2} />
+      <path d="M8 2v4M16 2v4M3 9h18" strokeWidth={2} />
+      <path d="M8 13h5M8 17h8" strokeWidth={2} />
+    </svg>
+  );
+}
+export function FingerprintIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
+      <path d="M12 11a3 3 0 0 0-3 3c0 3-1 5-2 6" strokeWidth={2} />
+      <path d="M12 11a3 3 0 0 1 3 3c0 3 1 5 2 6" strokeWidth={2} />
+      <path d="M12 1a10 10 0 0 1 10 10c0 6-3 9-4 10" strokeWidth={2} />
+      <path d="M12 1A10 10 0 0 0 2 11c0 6 3 9 4 10" strokeWidth={2} />
+    </svg>
+  );
+}
+export function LogoutIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M10 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4" />
+      <path d="M14 17l5-5-5-5v3H8v4h6v3z" />
+    </svg>
+  );
+}
+export function QrIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zM13 3h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zM13 13h3v3h-3zM16 16h3v3h-3zM19 13h2v2h-2zM13 19h2v2h-2z" />
+    </svg>
+  );
+}
+
+export function FileTypeIcon({
+  type,
+  className,
+}: {
+  type: FileType;
+  className?: string;
+}) {
+  const map: Record<FileType, { bg: string; label: string }> = {
+    pdf: { bg: "bg-red-500", label: "PDF" },
+    jpg: { bg: "bg-amber-500", label: "JPG" },
+    xls: { bg: "bg-green-500", label: "XLS" },
+    doc: { bg: "bg-gray-500", label: "DOC" },
+    txt: { bg: "bg-gray-400", label: "TXT" },
+  };
+  const { bg, label } = map[type];
+  return (
+    <div
+      className={`w-7 h-7 rounded-[6px] ${bg} grid place-items-center text-white text-[10px] font-extrabold ${
+        className || ""
+      }`}
+    >
+      {label}
+    </div>
+  );
+}
+
+/* Cloud badges (right side) */
+export function CloudBadge({
+  cloud,
+  className,
+}: {
+  cloud: Cloud;
+  className?: string;
+}) {
+  const color =
+    cloud === "dropbox"
+      ? "bg-sky-500"
+      : cloud === "gdrive"
+      ? "bg-emerald-500"
+      : "bg-blue-500";
+  const text = cloud === "dropbox" ? "DB" : cloud === "gdrive" ? "G" : "OD";
+  return (
+    <div
+      className={`w-6 h-6 rounded-full ${color} text-white text-[10px] grid place-items-center font-extrabold ${
+        className || ""
+      }`}
+    >
+      {text}
+    </div>
+  );
+}
+
+/* Folder icons */
+export function FolderClosed(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="#f4b400" {...props}>
+      <path d="M10 4l2 2h6a2 2 0 0 1 2 2v9a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h5z" />
+    </svg>
+  );
+}
+export function FolderOpen(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="#f4b400" {...props}>
+      <path d="M3 19a2 2 0 0 0 2 2h11a2 2 0 0 0 1.9-1.4l2.2-7A2 2 0 0 0 18.2 10H9.7L8 7H5a2 2 0 0 0-2 2v10z" />
+    </svg>
+  );
+}
+
+/* Dots + Plus */
+export function DotsVertical(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <circle cx="12" cy="5" r="2" />
+      <circle cx="12" cy="12" r="2" />
+      <circle cx="12" cy="19" r="2" />
+    </svg>
+  );
+}
+export function Plus(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M11 5h2v14h-2zM5 11h14v2H5z" />
+    </svg>
+  );
+}
+export function ChevronRight(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
+      <path d="M9 6l6 6-6 6" strokeWidth={2} strokeLinecap="round" />
+    </svg>
+  );
+}
+export function UserMini(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 22c1.7-4.5 14.3-4.5 16 0" />
     </svg>
   );
 }
