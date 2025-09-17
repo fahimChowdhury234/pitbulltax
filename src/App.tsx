@@ -17,6 +17,25 @@ import BillingHome from "./pages/Billing";
 import BillingTransactions from "./pages/Billing/Transactions";
 import BillingInvoice from "./pages/Billing/Invoice";
 import SendPaymentLink from "./pages/Billing/SendPaymentLink";
+import TranscriptsIndex from "./pages/Transcripts";
+import Connect from "./pages/Transcripts/request/Connect";
+import SelectClient from "./pages/Transcripts/request/SelectClient";
+import RequestForm from "./pages/Transcripts/request/RequestForm";
+import TranscriptsDashboard from "./pages/Transcripts/TranscriptsDashboard";
+import TranscriptAlerts from "./pages/Transcripts/TranscriptAlerts";
+import TranscriptReports from "./pages/Transcripts/TranscriptReports";
+import ViewTranscripts from "./pages/Transcripts/ViewTranscripts";
+import SMSMenu from "./pages/SMS/SMSMenu";
+import SingleSMSList from "./pages/SMS/SingleSMSList";
+import SingleSMSChat from "./pages/SMS/SingleSMSChat";
+import BlastList from "./pages/SMS/BlastList";
+import BlastChat from "./pages/SMS/BlastChat";
+import SMSHistory from "./pages/SMS/SMSHistory";
+import EmailMenu from "./pages/Email/EmailMenu";
+import EmailClientPicker from "./pages/Email/EmailClientPicker";
+import PlainEmailCompose from "./pages/Email/PlainEmailCompose";
+import QuestionnaireClientPicker from "./pages/Email/uestionnaireClientPicker";
+import QuestionnaireCompose from "./pages/Email/QuestionnaireCompose";
 // import ClientPicker from "./pages/files/ClientPicker";
 // import ClientFiles from "./pages/files/ClientFiles";
 // import FolderView from "./pages/files/FolderView";
@@ -41,7 +60,8 @@ function routeLabel(pathname: string): string {
     "/settings/2fa": "2-F Authentication",
     "/settings/reminders": "Reminders",
     "/settings/fingerprint": "Fingerprint",
-    "/billing": "Billing"
+    "/billing": "Billing",
+    "/transcripts": "Transcripts",
   };
   return map[pathname] ?? "Home";
 }
@@ -91,12 +111,38 @@ export default function App() {
           <Route path=":clientfolderIdId" element={<ClientFiles />} />
           <Route path="/files/:clientId/:folderId" element={<FolderView />} /> */}
           <Route path="/billing" element={<BillingHome />} />
+          <Route path="/transcripts" element={<TranscriptsIndex />} />
+          <Route path="/transcripts/request/connect" element={<Connect />} />
+          <Route
+            path="/transcripts/request/select-client"
+            element={<SelectClient />}
+          />
+          <Route
+            path="/transcripts/request/:clientId"
+            element={<RequestForm />}
+          />
           <Route
             path="/billing/transactions"
             element={<BillingTransactions />}
           />
           <Route path="/billing/invoice/:id" element={<BillingInvoice />} />
           <Route path="/billing/send-link" element={<SendPaymentLink />} />
+          <Route path="/transcripts/dashboard" element={<TranscriptsDashboard />} />
+          <Route path="/transcripts/alerts" element={<TranscriptAlerts />} />
+          <Route path="/transcripts/reports" element={<TranscriptReports />} />
+          <Route path="/transcripts/view" element={<ViewTranscripts />} />
+          <Route path="/sms" element={<SMSMenu />} />
+          <Route path="/sms/single" element={<SingleSMSList />} />
+          <Route path="/sms/single/:id" element={<SingleSMSChat />} />
+          <Route path="/sms/blast" element={<BlastList />} />
+          <Route path="/sms/blast/:groupId" element={<BlastChat />} />
+          <Route path="/sms/history" element={<SMSHistory />} />
+          <Route path="/email" element={<EmailMenu />} />
+          <Route path="/email/plain" element={<EmailClientPicker kind="plain" />} />
+          <Route path="/email/plain/:clientId" element={<PlainEmailCompose />} />
+          <Route path="/email/template" element={<EmailClientPicker kind="template" />} />
+          <Route path="/email/questionnaire" element={<QuestionnaireClientPicker />} />
+          <Route path="/email/questionnaire/:clientId" element={<QuestionnaireCompose />} />
         </Routes>
       </main>
 
