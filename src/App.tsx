@@ -1,6 +1,5 @@
 import { Routes, Route, NavLink, useLocation, Outlet } from "react-router-dom";
 import Home from "./pages/Home";
-import Calendar from "./pages/Calendar";
 import ClientsIndex from "./pages/Clients";
 import ClientSummary from "./pages/Clients/Summary";
 import { SVGProps } from "react";
@@ -9,7 +8,7 @@ import NewTicket from "./pages/Support/NewTicket";
 import Tickets from "./pages/Support/Tickets";
 import Settings from "./pages/Settings";
 import TimeZones from "./pages/Settings/TimeZones";
-import Notifications from "./pages/Settings/Notifications";
+import SettingNotifications from "./pages/Settings/Notifications";
 import TwoFactor from "./pages/Settings/TwoFactor";
 import Reminders from "./pages/Settings/Reminders";
 import Fingerprint from "./pages/Settings/Fingerprint";
@@ -36,6 +35,24 @@ import EmailClientPicker from "./pages/Email/EmailClientPicker";
 import PlainEmailCompose from "./pages/Email/PlainEmailCompose";
 import QuestionnaireClientPicker from "./pages/Email/uestionnaireClientPicker";
 import QuestionnaireCompose from "./pages/Email/QuestionnaireCompose";
+import NewsList from "./pages/News/NewsList";
+import NewsDetail from "./pages/News/NewsDetail";
+import PromotionsList from "./pages/Promotions/PromotionsList";
+import PromotionDetail from "./pages/Promotions/PromotionDetail";
+import Workshops from "./pages/Workshops";
+import NotificationDetailRouter from "./pages/Notifications/details/NotificationDetailRouter";
+import Notifications from "./pages/Notifications/Notifications";
+
+import Calendar from "./pages/Calendar/index";
+import CalendarToday from "./pages/Calendar/CalendarToday";
+import CalendarDaily from "./pages/Calendar/CalendarDaily";
+import CalendarWeekly from "./pages/Calendar/CalendarWeekly";
+import CalendarMonthly from "./pages/Calendar/CalendarMonthly";
+import SendPaymentLinkCompose from "./pages/Billing/SendPaymentLinkCompose";
+import ChatClientList from "./pages/Chat/ChatClientList";
+import ChatWindow from "./pages/Chat/ChatWindow";
+import { ChatProvider } from "./data/chatStore";
+
 // import ClientPicker from "./pages/files/ClientPicker";
 // import ClientFiles from "./pages/files/ClientFiles";
 // import FolderView from "./pages/files/FolderView";
@@ -44,8 +61,8 @@ function routeLabel(pathname: string): string {
   if (pathname.startsWith("/clients")) return "Clients"; // covers nested routes
   const map: Record<string, string> = {
     "/": "Home",
-    "/calendar": "Calendar",
-    "/files": "Files",
+    // "/calendar": "Calendar",
+    // "/files": "Files",
     "/notifications": "Notifications",
     "/chat": "Chat",
     "/settings": "Settings",
@@ -56,12 +73,13 @@ function routeLabel(pathname: string): string {
     "/support": "Support",
     "/support/tickets": "Tickets",
     "/support/new-ticket": "Tickets",
-    "/settings/notifications": "notifications",
+    "/settings/notifications": "settings notifications",
     "/settings/2fa": "2-F Authentication",
     "/settings/reminders": "Reminders",
     "/settings/fingerprint": "Fingerprint",
     "/billing": "Billing",
     "/transcripts": "Transcripts",
+    "/workshops": "Workshops",
   };
   return map[pathname] ?? "Home";
 }
@@ -74,111 +92,166 @@ export default function App() {
   const { pathname } = useLocation();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#2E77C5] to-[#2E6BB3] text-white">
-      {/* Top bar */}
-      <header className="px-6 pt-8 pb-4 flex items-center justify-between">
-        <h1 className="text-4xl font-extrabold tracking-tight">Menu</h1>
-        <div className="w-11 h-11 rounded-full overflow-hidden ring-2 ring-white/40">
-          <img
-            src="https://i.pravatar.cc/100?img=1"
-            className="w-full h-full object-cover"
-            alt="Profile"
-          />
-        </div>
-      </header>
+    <ChatProvider>
+      <div className="min-h-screen bg-gradient-to-b from-[#2E77C5] to-[#2E6BB3] text-white">
+        {/* Top bar */}
+        <header className="px-6 pt-8 pb-4 flex items-center justify-between">
+          <h1 className="text-4xl font-extrabold tracking-tight">Menu</h1>
+          <div className="w-11 h-11 rounded-full overflow-hidden ring-2 ring-white/40">
+            <img
+              src="https://i.pravatar.cc/100?img=1"
+              className="w-full h-full object-cover"
+              alt="Profile"
+            />
+          </div>
+        </header>
 
-      {/* Page content */}
-      <main className="pb-28 px-4">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/calendar" element={<Calendar />} />
+        {/* Page content */}
+        <main className="pb-28 px-4">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/calendar" element={<Calendar />} />
 
-          {/* /clients + nested */}
-          <Route path="/clients" element={<ClientsLayout />}>
-            <Route index element={<ClientsIndex />} />
-            <Route path=":id/summary" element={<ClientSummary />} />
-          </Route>
-          <Route path="/support" element={<Support />} />
-          <Route path="/support/new-ticket" element={<NewTicket />} />
-          <Route path="/support/tickets" element={<Tickets />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/settings/time-zones" element={<TimeZones />} />
-          <Route path="/settings/notifications" element={<Notifications />} />
-          <Route path="/settings/2fa" element={<TwoFactor />} />
-          <Route path="/settings/reminders" element={<Reminders />} />
-          <Route path="/settings/fingerprint" element={<Fingerprint />} />
-          {/* <Route index element={<ClientPicker />} />
+            {/* /clients + nested */}
+            <Route path="/clients" element={<ClientsLayout />}>
+              <Route index element={<ClientsIndex />} />
+              <Route path=":id/summary" element={<ClientSummary />} />
+            </Route>
+            <Route path="/support" element={<Support />} />
+            <Route path="/support/new-ticket" element={<NewTicket />} />
+            <Route path="/support/tickets" element={<Tickets />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/settings/time-zones" element={<TimeZones />} />
+            <Route
+              path="/settings/notifications"
+              element={<SettingNotifications />}
+            />
+            <Route path="/settings/2fa" element={<TwoFactor />} />
+            <Route path="/settings/reminders" element={<Reminders />} />
+            <Route path="/settings/fingerprint" element={<Fingerprint />} />
+            {/* <Route index element={<ClientPicker />} />
           <Route path=":clientfolderIdId" element={<ClientFiles />} />
           <Route path="/files/:clientId/:folderId" element={<FolderView />} /> */}
-          <Route path="/billing" element={<BillingHome />} />
-          <Route path="/transcripts" element={<TranscriptsIndex />} />
-          <Route path="/transcripts/request/connect" element={<Connect />} />
-          <Route
-            path="/transcripts/request/select-client"
-            element={<SelectClient />}
-          />
-          <Route
-            path="/transcripts/request/:clientId"
-            element={<RequestForm />}
-          />
-          <Route
-            path="/billing/transactions"
-            element={<BillingTransactions />}
-          />
-          <Route path="/billing/invoice/:id" element={<BillingInvoice />} />
-          <Route path="/billing/send-link" element={<SendPaymentLink />} />
-          <Route path="/transcripts/dashboard" element={<TranscriptsDashboard />} />
-          <Route path="/transcripts/alerts" element={<TranscriptAlerts />} />
-          <Route path="/transcripts/reports" element={<TranscriptReports />} />
-          <Route path="/transcripts/view" element={<ViewTranscripts />} />
-          <Route path="/sms" element={<SMSMenu />} />
-          <Route path="/sms/single" element={<SingleSMSList />} />
-          <Route path="/sms/single/:id" element={<SingleSMSChat />} />
-          <Route path="/sms/blast" element={<BlastList />} />
-          <Route path="/sms/blast/:groupId" element={<BlastChat />} />
-          <Route path="/sms/history" element={<SMSHistory />} />
-          <Route path="/email" element={<EmailMenu />} />
-          <Route path="/email/plain" element={<EmailClientPicker kind="plain" />} />
-          <Route path="/email/plain/:clientId" element={<PlainEmailCompose />} />
-          <Route path="/email/template" element={<EmailClientPicker kind="template" />} />
-          <Route path="/email/questionnaire" element={<QuestionnaireClientPicker />} />
-          <Route path="/email/questionnaire/:clientId" element={<QuestionnaireCompose />} />
-        </Routes>
-      </main>
+            <Route path="/billing" element={<BillingHome />} />
+            <Route path="/transcripts" element={<TranscriptsIndex />} />
+            <Route path="/transcripts/request/connect" element={<Connect />} />
+            <Route
+              path="/transcripts/request/select-client"
+              element={<SelectClient />}
+            />
+            <Route
+              path="/transcripts/request/:clientId"
+              element={<RequestForm />}
+            />
+            <Route
+              path="/billing/transactions"
+              element={<BillingTransactions />}
+            />
+            <Route path="/billing/invoice/:id" element={<BillingInvoice />} />
+            <Route path="/billing/send-link" element={<SendPaymentLink />} />
+            <Route
+              path="/transcripts/dashboard"
+              element={<TranscriptsDashboard />}
+            />
+            <Route path="/transcripts/alerts" element={<TranscriptAlerts />} />
+            <Route
+              path="/transcripts/reports"
+              element={<TranscriptReports />}
+            />
+            <Route path="/transcripts/view" element={<ViewTranscripts />} />
+            <Route path="/sms" element={<SMSMenu />} />
+            <Route path="/sms/single" element={<SingleSMSList />} />
+            <Route path="/sms/single/:id" element={<SingleSMSChat />} />
+            <Route path="/sms/blast" element={<BlastList />} />
+            <Route path="/sms/blast/:groupId" element={<BlastChat />} />
+            <Route path="/sms/history" element={<SMSHistory />} />
+            <Route path="/email" element={<EmailMenu />} />
+            <Route
+              path="/email/plain"
+              element={<EmailClientPicker kind="plain" />}
+            />
+            <Route
+              path="/email/plain/:clientId"
+              element={<PlainEmailCompose />}
+            />
+            <Route
+              path="/email/template"
+              element={<EmailClientPicker kind="template" />}
+            />
+            <Route
+              path="/email/questionnaire"
+              element={<QuestionnaireClientPicker />}
+            />
+            <Route
+              path="/email/questionnaire/:clientId"
+              element={<QuestionnaireCompose />}
+            />
+            <Route path="/news" element={<NewsList />} />
+            <Route path="/news/:id" element={<NewsDetail />} />
+            <Route path="/promotions" element={<PromotionsList />} />
+            <Route path="/promotions/:id" element={<PromotionDetail />} />
+            <Route path="/workshops" element={<Workshops />} />
+            <Route path="/notifications" element={<Notifications />} />
+            <Route
+              path="/notifications/:id"
+              element={<NotificationDetailRouter />}
+            />
+            <Route path="/calendar/today" element={<CalendarToday />} />
+            <Route path="/calendar/daily" element={<CalendarDaily />} />
+            <Route path="/calendar/weekly" element={<CalendarWeekly />} />
+            <Route path="/calendar/monthly" element={<CalendarMonthly />} />
+            <Route
+              path="/billing/send-link/:invoiceId"
+              element={<SendPaymentLinkCompose />}
+            />
+            <Route path="/chat" element={<ChatClientList />} />
+            <Route path="/chat/:id" element={<ChatWindow />} />
+          </Routes>
+        </main>
 
-      {/* Bottom Nav displaying current route label */}
-      <nav className="fixed bottom-0 left-0 right-0">
-        <div className="mx-3 mb-3 rounded-3xl bg-[#0E3561] shadow-[0_-8px_32px_rgba(0,0,0,0.35)]">
-          <div className="flex items-center gap-5 px-5 py-4">
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                "flex flex-col items-center justify-center p-2 rounded-2xl " +
-                (isActive ? "bg-white/10" : "hover:bg-white/5")
-              }
-            >
-              <HomeIcon className="w-6 h-6" />
-            </NavLink>
+        {/* Bottom Nav displaying current route label */}
+        <nav className="fixed bottom-0 left-0 right-0">
+          <div className="mx-3 mb-3 rounded-3xl bg-[#0E3561] shadow-[0_-8px_32px_rgba(0,0,0,0.35)]">
+            <div className="flex items-center gap-5 px-5 py-4">
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  "flex flex-col items-center justify-center p-2 rounded-2xl " +
+                  (isActive ? "bg-white/10" : "hover:bg-white/5")
+                }
+              >
+                <HomeIcon className="w-6 h-6" />
+              </NavLink>
 
-            <div className="flex-1 text-center">
-              <span className="text-xl font-semibold tracking-wide">
-                {routeLabel(pathname)}
-              </span>
+              <div className="flex-1 text-center">
+                <span className="text-xl font-semibold tracking-wide">
+                  {routeLabel(pathname)}
+                </span>
+              </div>
+
+              <NavLink
+                to="/chat"
+                className={({ isActive }) =>
+                  "flex flex-col items-center justify-center p-2 rounded-2xl " +
+                  (isActive ? "bg-white/10" : "hover:bg-white/5")
+                }
+              >
+                <ChatIcon className="w-6 h-6" />
+              </NavLink>
+              <NavLink
+                to="/clients"
+                className={({ isActive }) =>
+                  "flex flex-col items-center justify-center p-2 rounded-2xl " +
+                  (isActive ? "bg-white/10" : "hover:bg-white/5")
+                }
+              >
+                <MenuIcon className="w-6 h-6" />
+              </NavLink>
             </div>
-
-            <NavLink
-              to="/clients"
-              className={({ isActive }) =>
-                "flex flex-col items-center justify-center p-2 rounded-2xl " +
-                (isActive ? "bg-white/10" : "hover:bg-white/5")
-              }
-            >
-              <MenuIcon className="w-6 h-6" />
-            </NavLink>
           </div>
-        </div>
-      </nav>
-    </div>
+        </nav>
+      </div>
+    </ChatProvider>
   );
 }
 
@@ -191,6 +264,19 @@ function HomeIcon(props: SVGProps<SVGSVGElement>) {
         strokeWidth="1.8"
       />
       <path d="M9 22v-7h6v7" strokeWidth="1.8" />
+    </svg>
+  );
+}
+
+function ChatIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
+      <path
+        d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }

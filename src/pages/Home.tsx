@@ -14,6 +14,7 @@ import {
   SupportIcon,
   SMSIcon,
   ProfileIcon,
+  WorkshopsIcon,
 } from "../icons/Icons";
 import { ComponentType, SVGProps } from "react";
 
@@ -39,6 +40,8 @@ const tiles: Tile[] = [
   { label: "Support", to: "/support", badge: 1, icon: SupportIcon },
   { label: "SMS", to: "/sms", badge: 1, icon: SMSIcon },
   { label: "Profile", to: "/profile", badge: 1, icon: ProfileIcon },
+  { label: "Workshops", to: "/workshops", badge: 1, icon: WorkshopsIcon },
+
 ];
 
 export default function Home() {

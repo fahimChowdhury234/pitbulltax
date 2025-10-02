@@ -19,6 +19,7 @@ export type InvoiceDetails = {
 };
 
 export type InvoiceListItem = {
+  [x: string]: number;
   id: number;
   title: string;
   client: string;
